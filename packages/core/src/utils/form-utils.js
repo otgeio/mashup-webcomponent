@@ -93,8 +93,9 @@ export const setBodyContent = (content, path, pageinstructions, casedata, value)
   const data = {};
   let target = path.substring(0, propPath);
   data[path.substring(propPath + 1)] = value;
-  const startParens = target.indexOf('(');
-  if (startParens === -1) {
+  const startParens = target.lastIndexOf('(');
+  const lastDotPosition = target.lastIndexOf('.');
+  if (startParens === -1 || startParens < lastDotPosition) {
     pageinstructions.push({
       instruction: 'UPDATE',
       target,
